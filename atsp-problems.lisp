@@ -3,7 +3,22 @@
 
 ; (load (compile-file "atsp-problems.lisp"))
 
-(defvar *min* (make-array '(4 4) :initial-contents '((9999 4 23 12)(6 9999 22 7)(30 26 9999 75)(15 10 70 9999))) )
+(defvar *min* (make-array '(4 4) :initial-contents '(
+(9999  4     23   12)
+(6     9999  22   7)
+(30    26    9999 75)
+(15    10    70   9999)
+)))
+
+(defvar *br7* (make-array '(7 7) :initial-contents '(
+(1 100 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+)))
 
 (defvar *br17* (make-array '(17 17) 
 			   :initial-contents '((9999    3    5   48   48    8    8    5    5    3    3    0    3    5    8    8    5)

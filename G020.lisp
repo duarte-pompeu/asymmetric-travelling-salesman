@@ -12,6 +12,9 @@
 ; (load (compile-file "G020.lisp")) (atsp *min* "prof")
 ; (load (compile-file "G020.lisp")) (atsp *min* "a*.best.heuristic")
 
+; directo da consola:
+; clisp -x '(load (compile-file "G020.lisp")) (atsp *min* "prof")'
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; O QUE ESTAVA A FAZER ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; heuristica com problemas 
