@@ -8,6 +8,7 @@
 
 (load "procura")
 (load "atsp-problems")
+(load "heuristics")
 
 ; (load (compile-file "G020.lisp")) (atsp *min* "prof")
 ; (load (compile-file "G020.lisp")) (atsp *min* "a*.best.heuristic")
@@ -117,43 +118,6 @@
 				))))
 	(values (reverse estados))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;
-;         Heuristicas
-;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun best-h (estado)
-	;	(print "best-h")
-
-		; (let ((caminho (atsp-estado-caminho estado))
-		; 	(value 0))
-		; (if (and (> 1 (length caminho)) (eq (first (caminho)) (first (last caminho))))
-		; 	(return-from best-h 0)
-		; (dolist	(x caminho)
-		; 	(setf value (+ value (nth x *medias*)))))
-		; (print value)
-		; value))
-		
-
-		(let ((caminho (atsp-estado-caminho estado))
-			(value *custoTotal*))
-		;(print caminho)
-		;(print "*custoTotal*")
-		;(print *custoTotal*)
-		(if (and (> 1 (length caminho)) (eq (first (caminho)) (first (last caminho))))
-			(return-from best-h 0)
-		(dolist	(x caminho)
-			(setf value (- value (nth x *medias*)))))
-		(format t "h=~D, c=~D, f=~D" value (custo estado) (+ value (custo estado)))
-		value))
-
-; diz so o numero de caminhos qe faltam ate a solucao
-(defun alter-h (estado)
-	;	(print "alter-h")
-	;(print (- (1+ *dim*) (length (atsp-estado-caminho estado))))
-	(return-from alter-h (- (1+ *dim*) (length (atsp-estado-caminho estado))))) 
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -196,6 +160,12 @@
                           :estado= #'equal
                           :custo #'custo
                           :heuristica #'alter-h))
+    (prob_dists (cria-problema (atsp-estado-inicial problema) 
+                          (list #'atsp-operador)
+                          :objectivo? #'atsp-objectivo?
+                          :estado= #'equal
+                          :custo #'custo
+                          :heuristica #'distances-h))                          
     output
     )
 
@@ -205,6 +175,9 @@
         (setf solucao (procura prob_2h "a*" :espaco-em-arvore? T)))
     ;  ((string= estrategia "iterative.sampling")
     ;    (setf solucao (minha-procura prob_h "ilds" :espaco-em-arvore? T)))
+      ((string= estrategia "a*.distances")
+        (setf solucao (procura prob_dists "a*" :espaco-em-arvore? T)))
+    
 
   ;   ((string= estrategia "best.approach")
    ;     (setf solucao (minha-procura prob "best.approach" :espaco-em-arvore? T)))

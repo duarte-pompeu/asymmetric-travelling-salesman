@@ -10,8 +10,21 @@
 (15    10    70   9999)
 )))
 
-(defvar *br7* (make-array '(7 7) :initial-contents '(
-(1 100 1 1 1 1 1)
+(defvar *br7-1* (make-array '(7 7) :initial-contents '(
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1)
+)))
+
+
+; como *br7-1* começa com (0, 6), usar contra exemplo em que (0 6) é má escolha)
+; sucesso: br7-1alt começa (0 5)
+(defvar *br7-1alt* (make-array '(7 7) :initial-contents '(
+(1 1 1 1 1 1 999)
 (1 1 1 1 1 1 1)
 (1 1 1 1 1 1 1)
 (1 1 1 1 1 1 1)
