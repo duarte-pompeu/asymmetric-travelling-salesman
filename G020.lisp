@@ -166,6 +166,12 @@
                           :estado= #'equal
                           :custo #'custo
                           :heuristica #'distances-h))                          
+    (prob-media-distancias (cria-problema (atsp-estado-inicial problema) 
+                          (list #'atsp-operador)
+                          :objectivo? #'atsp-objectivo?
+                          :estado= #'equal
+                          :custo #'custo
+                          :heuristica #'media-distancias-h))                          
     output
     )
 
@@ -177,6 +183,8 @@
     ;    (setf solucao (minha-procura prob_h "ilds" :espaco-em-arvore? T)))
       ((string= estrategia "a*.distances")
         (setf solucao (procura prob_dists "a*" :espaco-em-arvore? T)))
+      ((string= estrategia "a*.media-distancias")
+        (setf solucao (procura prob-media-distancias "a*" :espaco-em-arvore? T)))
     
 
   ;   ((string= estrategia "best.approach")
@@ -199,3 +207,8 @@
         	 (push (atsp-estado-caminho (nth x solucao)) output))
        	 (setf solucao output)))
    (reverse solucao)))
+
+; comment debug body before deployment to remove prints
+(defun debug (thing)
+	;~ (print thing)
+)
