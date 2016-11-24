@@ -184,6 +184,7 @@
       ((string= estrategia "a*.distances")
         (setf solucao (procura prob_dists "a*" :espaco-em-arvore? T)))
       ((string= estrategia "a*.media-distancias")
+		(init-media-distancias (atsp-estado-inicial problema))
         (setf solucao (procura prob-media-distancias "a*" :espaco-em-arvore? T)))
     
 
@@ -209,6 +210,8 @@
    (reverse solucao)))
 
 ; comment debug body before deployment to remove prints
-(defun debug (thing)
+(defun debug (thing description)
+	;~ (print description)
 	;~ (print thing)
+	;~ (print "---")
 )

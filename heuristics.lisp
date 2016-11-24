@@ -50,7 +50,9 @@
 ; Heuristica media das distancias
 ; Atribuir maior peso da função h a nós com arcos de valores mais altos
 ; Ou seja, nós com arcos de baixo valor são beneficiados na função h
-(defun media-distancias-h (estado)
+(defvar *media-distancias-array* (make-array 100))
+
+(defun init-media-distancias (estado)
 	(let*(
 		(problema (atsp-estado-problema estado))
 		(n (first (array-dimensions problema)))
@@ -58,18 +60,32 @@
 		(somatorio 0)
 		(media 0)
 	)
+		(debug n "n")
+		(adjust-array *media-distancias-array* n)
+		
 		; somar distancia a todos os vizinhos
-		(debug no)
-		(loop for i from 0 to (1- n) do
-			(setf somatorio (+ somatorio (aref problema no i)))
-		)
-		; descontar distancia a si próprio
-		(setf somatorio (- somatorio (aref problema no no))) 
-		(debug somatorio)
-		
-		(setf media (/ somatorio (- n 1)))
-		(debug media)
-		
-		(debug "---")
-		media
+		(debug no "no")
+		(loop for i from 0 to (1- n) do	
+			(loop for j from 0 to (1- n) do
+				(setf somatorio (+ somatorio (aref problema no j)))
+			)
+			; descontar distancia a si próprio
+			(setf somatorio (- somatorio (aref problema no no))) 
+			(debug somatorio "somatorio")
+			
+			(setf media (/ somatorio (- n 1)))
+			(debug media "media")
+			(setf (aref *media-distancias-array* i) media)
+			(debug 0 "end")
+)))
+
+(defun media-distancias-h (estado)
+	(let*(
+		(problema (atsp-estado-problema estado))
+		(n (first (array-dimensions problema)))
+		(no (car (last (atsp-estado-caminho estado))))
+	)
+	(debug no "no")
+	(debug (aref *media-distancias-array* no) "media")	
+	(aref *media-distancias-array* no)
 ))
