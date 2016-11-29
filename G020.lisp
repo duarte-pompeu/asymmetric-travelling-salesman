@@ -9,6 +9,7 @@
 (load "procura")
 (load "atsp-problems")
 (load "heuristics")
+(load "depth.lisp")
 
 ; (load (compile-file "G020.lisp")) (atsp *min* "prof")
 ; (load (compile-file "G020.lisp")) (atsp *min* "a*.best.heuristic")
@@ -186,6 +187,8 @@
       ((string= estrategia "a*.media-distancias")
 		(init-media-distancias (atsp-estado-inicial problema))
         (setf solucao (procura prob-media-distancias "a*" :espaco-em-arvore? T)))
+      ((string= estrategia "r-depth")
+        (setf solucao (r-depth problema 0)))
     
 
   ;   ((string= estrategia "best.approach")
