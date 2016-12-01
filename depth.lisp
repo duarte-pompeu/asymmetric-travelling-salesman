@@ -1,6 +1,5 @@
 (defun r-depth (problema no-inicial)
-	;inicializacao
-	;depth-visits inicial = custos do problema
+	; inicializacao
 	(let* ((n (first (array-dimensions problema)))
 		(n-loops 1000)
 		; each time you visit (node number, visit), increase heuristic cost
@@ -10,7 +9,9 @@
 		(loop for j from 0 to (1- n) do
 			(setf (aref depth-visits-array i j) 1)))
 
-	(let* ((min-custo 9999))
+	; ciclos de pesquisas depth com mudança de custos após cada iteração
+	(let* ((min-custo 9999)
+		(melhor-caminho))
 
 		;chamada a func recursiva
 		(loop for i from 0 to n-loops
@@ -20,11 +21,13 @@
 				(if (< custo min-custo)
 					(progn
 					(setf min-custo custo)
+					(setf melhor-caminho caminho)
 
-					(print caminho)
-					(print custo)
+					;~ (print caminho)
+					;~ (print custo)
 				))
 		))
+		(get-path melhor-caminho)
 )))
 
 (defun depth-aux (problema no-actual caminho custo-actual depth-visits-array)
@@ -64,3 +67,14 @@
 			do (progn (setf custo (+ custo (aref problema (nth (- l 2) caminho)(nth (- l 1) caminho))))
 									(decf l))))
 			custo))
+
+(defun get-path(sol)
+	(let ((actualsol (reverse sol))
+		(solucao '()))
+
+		(dotimes (x (length actualsol))
+			
+			(push (reverse actualsol) solucao)
+			(pop actualsol))
+
+		solucao))

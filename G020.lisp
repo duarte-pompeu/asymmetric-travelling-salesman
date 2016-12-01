@@ -197,7 +197,8 @@
 		(init-greedy-h (atsp-estado-inicial problema))
         (setf solucao (procura prob-greedy "a*" :espaco-em-arvore? T)))
       ((string= estrategia "r-depth")
-        (setf solucao (r-depth problema 0)))
+        (setf solucao (r-depth problema 0))
+        (return-from atsp solucao))
     
 
   ;   ((string= estrategia "best.approach")
