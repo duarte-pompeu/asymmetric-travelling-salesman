@@ -89,3 +89,39 @@
 	(debug (aref *media-distancias-array* no) "media")	
 	(aref *media-distancias-array* no)
 ))
+
+(defvar *greedy-array* (make-array 100))
+(defun init-greedy-h (estado)
+	(let*((problema (atsp-estado-problema estado))
+		(n (first (array-dimensions problema)))
+		(no (car (last (atsp-estado-caminho estado)))))
+	
+	(loop for no from 0 to (1- n)
+	do (let* ((min-dist 999999))
+		(loop for i from 0 to (1- n) do 
+			( if (< (aref problema no i) min-dist)
+				(setf min-dist (aref problema no i))))
+		
+		(setf (aref *greedy-array* no) min-dist)
+		(setf min-dist 999999)
+		))
+	(print *greedy-array*)
+))
+
+(defun greedy-h (estado)
+	(let*((problema (atsp-estado-problema estado))
+		(no (car (last (atsp-estado-caminho estado)))))
+	
+	(aref *greedy-array* no)
+))
+
+;~ (defun greedy-h (estado)
+	;~ (let*((problema (atsp-estado-problema estado))
+		;~ (n (first (array-dimensions problema)))
+		;~ (no (car (last (atsp-estado-caminho estado))))
+		;~ (min-dist 999999999))
+
+	;~ (loop for i from 0 to (1- n) do 
+		;~ ( if (< (aref problema no i) min-dist)
+			;~ (setf min-dist (aref problema no i))))
+;~ min-dist))

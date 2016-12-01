@@ -167,6 +167,12 @@
                           :estado= #'equal
                           :custo #'custo
                           :heuristica #'distances-h))                          
+    (prob-greedy (cria-problema (atsp-estado-inicial problema) 
+                          (list #'atsp-operador)
+                          :objectivo? #'atsp-objectivo?
+                          :estado= #'equal
+                          :custo #'custo
+                          :heuristica #'greedy-h))                          
     (prob-media-distancias (cria-problema (atsp-estado-inicial problema) 
                           (list #'atsp-operador)
                           :objectivo? #'atsp-objectivo?
@@ -187,6 +193,9 @@
       ((string= estrategia "a*.media-distancias")
 		(init-media-distancias (atsp-estado-inicial problema))
         (setf solucao (procura prob-media-distancias "a*" :espaco-em-arvore? T)))
+      ((string= estrategia "a*.greedy")
+		(init-greedy-h (atsp-estado-inicial problema))
+        (setf solucao (procura prob-greedy "a*" :espaco-em-arvore? T)))
       ((string= estrategia "r-depth")
         (setf solucao (r-depth problema 0)))
     
